@@ -1,0 +1,41 @@
+
+39
+00000	003A	b	s	0	hero tile x
+00001	003B	b	s	0	hero tile y
+00002	10BC	b	u	0	gold!
+00003	10C7	b	u	0	level
+00004	10CA	b	s	0	max hp
+00005	10E2	b	s	0	enemy hp
+00006	003A	b	u	0	
+00007	083A	b	u	0	
+00008	084A	b	u	0	
+00009	088E	b	u	0	
+0000A	104A	b	u	0	
+0000B	108E	b	u	0	
+0000C	183A	b	u	0	
+0000D	602F	b	s	0	Direction
+0000E	184A	b	u	0	
+0000F	103A	b	u	0	x tile
+00010	188E	b	u	0	x tile - early
+00011	008E	b	u	0	x tile - early?
+00012	103B	b	u	0	y tile
+00013	008F	b	u	0	y tile - early
+00014	088F	b	u	0	next y tile alt
+00015	00D8	b	u	0	menu x
+00016	00D9	b	u	0	menu y
+00017	6507	b	u	0	battle command cursor preview
+00018	000A	b	u	0	no - battle command cursor?
+00019	150A	b	u	0	255 when not in battle
+0001A	08D8	b	u	0	
+0001B	10D8	b	u	0	
+0001C	18D8	b	u	0	
+0001D	004A	b	u	0	x tile of some sort
+0001E	00D2	b	u	0	type cursor?
+0001F	10E7	b	u	0	
+00020	10EB	b	u	0	
+00021	10EF	b	u	0	
+00022	10F3	b	u	0	
+00023	01E0	b	u	0	down arrow 134?
+00024	10BA	b	u	0	exp?
+00025	10E0	b	u	0	enemy type?
+00026	10C5	b	u	0	hp
