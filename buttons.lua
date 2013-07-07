@@ -9,4 +9,12 @@ M.B ={B=true}
 M.START = {start=true}
 M.DOWN ={up=false,down=true,left=false,right=false,a=false,b=false}
 
+
+function M.TapAndWait(joy, numFrames)
+    joypad.set(1,joy)
+    SleepFrames(1)
+    joypad.set(1,joyStill)
+    SleepFrames(numFrames - 1)
+end
+
 return M
