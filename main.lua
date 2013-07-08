@@ -4,13 +4,14 @@ local bit = require("bit")
 local Osd = require("display")
 --local Grid = require("Jumper.jumper.grid")
 --local Pathfinder = require ("Jumper.jumper.pathfinder")
-local map = require("map")
+local Map = require("map")
 local Npc = require("npc")
 local PrintHelper = require("print-helper")
 local Hero = require("hero")
 local Path = require("path")
 local Buttons = require("buttons")
 
+local map = Map:new()
 --local grid = Grid(map.data[8].collisionMap)
 --local finder = Pathfinder(grid, 'JPS', 0)
 --print_r(collisionMap)
@@ -53,8 +54,8 @@ while 1==1 do
     --local sx = playerTile.x - ((memory.readbyte(0x3A) - npcX ) * tileSize)
     --local sy = playerTile.y - ((memory.readbyte(0x3B) - npcY) * tileSize)
     --gui.box(sx, sy, sx + tileSize, sy + tileSize)
-
-    map.DrawCollisionMap()
+    map:UpdateCollisionMap()
+    map:DrawCollisionMap()
 
     Osd.DrawTileBox({x = npcX, y = npcY})
     Osd.DrawNpcs()
@@ -72,7 +73,7 @@ while 1==1 do
     --     end
     -- end
     Osd.DrawTileBox(targetPos, "blue")
-    Path.DrawPath(Path.GetPath(targetPos))
+    Path.DrawPath(Path.GetPath(map, targetPos))
 gui.drawtext(20, 20, ('hero: %d, %d'):format(Hero.GetPos().x, Hero.GetPos().y))
 
     --local node = n[1]
@@ -93,9 +94,10 @@ gui.drawtext(20, 20, ('hero: %d, %d'):format(Hero.GetPos().x, Hero.GetPos().y))
 
         if Hero.IsTileAligned() then
             print("tile aligned")
-            local path = Path.GetPath(targetPos)
+            map:UpdateCollisionMap()
+            local path = Path.GetPath(map, targetPos)
             if path then
-                Path.DrawPath(Path.GetPath(targetPos))
+                Path.DrawPath(Path.GetPath(map, targetPos))
 
                 local i = 0
                 nodePos = {}
@@ -111,6 +113,7 @@ gui.drawtext(20, 20, ('hero: %d, %d'):format(Hero.GetPos().x, Hero.GetPos().y))
         end
 
         if nodePos then
+
                 if Hero.GetNextTilePos().x < nodePos.x then
                      gui.drawtext(20, 40, 'keydown')
                     joypad.set(1, Buttons.RIGHT)
@@ -126,7 +129,7 @@ gui.drawtext(20, 20, ('hero: %d, %d'):format(Hero.GetPos().x, Hero.GetPos().y))
     --     local nodes = path:nodes()
         --PrintHelper.PrintArray(nodePos)
     --     node = nodes[0]
-        map.DrawCollisionMap()
+        map:DrawCollisionMap()
         Osd.DrawTileBox(targetPos, "blue")
         emu.frameadvance()
         joypad.set(1, Buttons.STILL)

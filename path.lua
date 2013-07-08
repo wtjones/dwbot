@@ -1,17 +1,16 @@
 local Grid = require("lib.Jumper.jumper.grid")
 local Pathfinder = require ("lib.Jumper.jumper.pathfinder")
-local Map = require("map")
 local Osd = require("display")
 local Hero = require("hero")
 
-local grid = Grid(Map.data[8].collisionMap)
-local finder = Pathfinder(grid, 'JPS', 0)
 
 local M = {}
 
 -- Calculate a path relative to hero
-function M.GetPath(targetPos)
+function M.GetPath(map, targetPos)
     local heroPos = Hero.GetTilePos()
+    local grid = Grid(map:GetCollisionMap())
+    local finder = Pathfinder(grid, 'JPS', 0)
     local path = finder:getPath(heroPos.x,heroPos.y, targetPos.x, targetPos.y)
     return path
 end
