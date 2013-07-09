@@ -63,6 +63,11 @@ function Map:GetMapId()
     return memory.readbyte(0x45)
 end
 
+function Map:IsCollision(pos)
+    local cmap = self:GetCollisionMap()
+    return (cmap[pos.y][pos.x] == 1) or false--if cmap[pos.y][pos.x] = 1 then true else false end
+end
+
 function Map:GetCollisionMap()
     return self.data[self.GetMapId()].currentCollisionMap
 end
@@ -75,7 +80,6 @@ function Map:UpdateCollisionMap()
         local row = cmap[npc.y]
         row[npc.x] = 1
     end
-    print("update collisions")
     self.data[self.GetMapId()].currentCollisionMap = cmap
 end
 

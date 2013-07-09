@@ -6,7 +6,7 @@ local Osd = require("display")
 --local Pathfinder = require ("Jumper.jumper.pathfinder")
 local Map = require("map")
 local Npc = require("npc")
-local PrintHelper = require("print-helper")
+local PrintHelper = require("helper.print-helper")
 local Hero = require("hero")
 local Path = require("path")
 local Buttons = require("buttons")
@@ -113,18 +113,34 @@ gui.drawtext(20, 20, ('hero: %d, %d'):format(Hero.GetPos().x, Hero.GetPos().y))
         end
 
         if nodePos then
+            local blockedRight = map:IsCollision({
+                        x = Hero.GetNextTilePos().x + 1,
+                        y = Hero.GetNextTilePos().y
+                    })
+            local blockedLeft = map:IsCollision({
+                        x = Hero.GetNextTilePos().x - 1,
+                        y = Hero.GetNextTilePos().y
+                    })
 
-                if Hero.GetNextTilePos().x < nodePos.x then
-                     gui.drawtext(20, 40, 'keydown')
-                    joypad.set(1, Buttons.RIGHT)
-                elseif Hero.GetNextTilePos().x > nodePos.x then
-                    joypad.set(1, Buttons.LEFT)
-                    gui.drawtext(20, 40, 'keydown')
-                elseif Hero.GetNextTilePos().y < nodePos.y then
-                    joypad.set(1, Buttons.DOWN)
-                elseif Hero.GetNextTilePos().y > nodePos.y then
-                    joypad.set(1, Buttons.UP)
-                end
+            local blockedDown = map:IsCollision({
+                        x = Hero.GetNextTilePos().x,
+                        y = Hero.GetNextTilePos().y + 1
+                    })
+
+            local blockedUp = map:IsCollision({
+                        x = Hero.GetNextTilePos().x - 1,
+                        y = Hero.GetNextTilePos().y
+                    })
+
+            if Hero.GetNextTilePos().x < nodePos.x and not blockedRight then
+                joypad.set(1, Buttons.RIGHT)
+            elseif Hero.GetNextTilePos().x > nodePos.x and not blockedLeft then
+                joypad.set(1, Buttons.LEFT)
+            elseif Hero.GetNextTilePos().y < nodePos.y and not blockedDown then
+                joypad.set(1, Buttons.DOWN)
+            elseif Hero.GetNextTilePos().y > nodePos.y and not blockedUp then
+                joypad.set(1, Buttons.UP)
+            end
         end
     --     local nodes = path:nodes()
         --PrintHelper.PrintArray(nodePos)
